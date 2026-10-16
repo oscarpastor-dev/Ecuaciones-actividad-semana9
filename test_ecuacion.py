@@ -69,6 +69,17 @@ class TestResolverEcuacion(unittest.TestCase):
         res = resolver_ecuacion(1, -2, 1)
         self.assertAlmostEqual(res["soluciones"][0], 1.0, places=10)
 
+
+    def test_coeficiente_a_negativo(self):
+        """-x^2 + 4 = 0 -> x=2, x=-2"""
+        res = resolver_ecuacion(-1, 0, 4)
+        self.assertEqual(res["tipo"], "dos_soluciones")
+        soluciones_ordenadas = sorted(res["soluciones"])
+        self.assertAlmostEqual(soluciones_ordenadas[0], -2.0)
+        self.assertAlmostEqual(soluciones_ordenadas[1], 2.0)
+
+
+
     def test_todos_cero(self):
         """a=0, b=0, c=0 -> ValueError"""
         with self.assertRaises(ValueError):
